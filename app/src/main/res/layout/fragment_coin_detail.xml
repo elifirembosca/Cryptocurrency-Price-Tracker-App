@@ -6,7 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".view.CoinDetailFragment">
 
+    <TextView
+        android:id="@+id/error_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Error! Try Again"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loading_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/container"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,7 +54,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/current_price_container"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/coin_detail_name">
+                app:layout_constraintTop_toBottomOf="@id/coin_name_container">
 
                 <TextView
                     android:id="@+id/price_percentage_change_title"
@@ -63,7 +85,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/price_percentage_change_container"
-                app:layout_constraintTop_toBottomOf="@id/coin_detail_name">
+                app:layout_constraintTop_toBottomOf="@id/coin_name_container">
 
                 <TextView
                     android:id="@+id/coin_detail_price_title"
@@ -85,48 +107,66 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/coin_detail_name"
+            <LinearLayout
+                android:id="@+id/coin_name_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="24sp"
                 android:layout_marginTop="16dp"
-                android:textStyle="bold"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_image"
-                app:layout_constraintBottom_toTopOf="@id/current_price_container"
-                tools:text="Coın Name" />
+                app:layout_constraintTop_toBottomOf="@id/detail_image">
 
-            <ImageView
-                android:id="@+id/add_favorite_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/coin_detail_name"
-                app:layout_constraintTop_toBottomOf="@id/detail_image"
-                app:layout_constraintBottom_toTopOf="@id/current_price_container"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_baseline_star_24" />
+                <TextView
+                    android:id="@+id/coin_detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="Coın Name" />
+
+                <com.like.LikeButton
+                    android:id="@+id/star_button"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_gravity="center"
+                    app:icon_size="16dp"
+                    app:icon_type="Star"
+                    app:liked="false" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/coin_detail_descp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:textSize="16sp"
                 android:justificationMode="inter_word"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/current_price_container"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/coin_detail_hashing_algorithm"
                 android:layout_marginBottom="16dp"
                 tools:text="Coin Descp" />
+
+            <TextView
+                android:id="@+id/coin_detail_hashing_algorithm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/current_price_container"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:text="Hashing Algorithm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

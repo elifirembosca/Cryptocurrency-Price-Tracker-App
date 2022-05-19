@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1045288683342:android:c43c6b728f84a75c92801f",
         "android_client_info": {
-          "package_name": "coin.tracker"
+          "package_name": "com.example.cryptocurrencypricetrackerapp"
         }
       },
       "oauth_client": [

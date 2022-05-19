@@ -14,11 +14,6 @@ interface CoinListDao {
     @Query("SELECT * FROM coinListItem")
     suspend fun getAllCoins():List<CoinListItem>
 
-    @Query("SELECT * FROM coinListItem WHERE uuid=:id")
-    suspend fun getCoin(id :Int) :CoinListItem
-
     @Query("DELETE FROM coinListItem")
     suspend fun deleteAllCoins()
-
-
 }

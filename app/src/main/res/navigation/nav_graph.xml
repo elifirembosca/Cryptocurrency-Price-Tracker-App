@@ -23,7 +23,13 @@
             android:id="@+id/action_coinDetailFragment_to_coinListFragment"
             app:destination="@id/coinListFragment" />
         <argument
-            android:name="countryUuid"
-            app:argType="integer"/>
+            android:name="coinName"
+            app:argType="string"/>
+        <argument
+            android:name="favCoinFlag"
+            app:argType="boolean"/>
+        <argument
+            android:name="documentId"
+            app:argType="string"/>
     </fragment>
 </navigation>

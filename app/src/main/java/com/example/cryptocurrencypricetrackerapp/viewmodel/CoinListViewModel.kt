@@ -19,14 +19,9 @@ class CoinListViewModel(application: Application): BaseViewModel(application) {
     private val disposable = CompositeDisposable()
     private var custompref= CustomSharedPreferences(getApplication())
     private var refreshTime = 10 * 60 * 1000 * 1000 * 1000L
-    private var page = "1"
-
     val coinList = MutableLiveData<List<CoinListItem>>()
-
     val coinListError = MutableLiveData<Boolean>()
-
     val coinListLoading = MutableLiveData<Boolean>()
-
 
     fun refreshData(){
         val updateTime = custompref.getTime()
@@ -35,7 +30,6 @@ class CoinListViewModel(application: Application): BaseViewModel(application) {
         } else {
             getDataFromAPI()
         }
-
     }
 
     private fun getDataFromSQlite(){
@@ -64,7 +58,6 @@ class CoinListViewModel(application: Application): BaseViewModel(application) {
                         coinListError.value = true
                         e.printStackTrace()
                     }
-
                 })
         )
     }
@@ -93,7 +86,6 @@ class CoinListViewModel(application: Application): BaseViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()
-
         disposable.clear()
     }
 

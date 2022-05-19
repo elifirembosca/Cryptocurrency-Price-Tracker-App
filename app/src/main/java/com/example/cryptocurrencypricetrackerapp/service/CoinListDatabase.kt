@@ -11,8 +11,6 @@ abstract class CoinListDatabase : RoomDatabase() {
 
     abstract fun coinListDao() : CoinListDao
 
-    //Singleton
-
     companion object {
 
         @Volatile private var instance : CoinListDatabase? = null
@@ -24,7 +22,6 @@ abstract class CoinListDatabase : RoomDatabase() {
                 instance = it
             }
         }
-
 
         private fun makeDatabase(context : Context) = Room.databaseBuilder(
             context.applicationContext,CoinListDatabase::class.java,"coindatabase"

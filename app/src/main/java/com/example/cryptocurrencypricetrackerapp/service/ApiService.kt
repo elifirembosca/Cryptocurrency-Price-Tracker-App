@@ -1,5 +1,6 @@
 package com.example.cryptocurrencypricetrackerapp.service
 
+import com.example.cryptocurrencypricetrackerapp.dto.CoinDetail
 import com.example.cryptocurrencypricetrackerapp.dto.CoinListItem
 import io.reactivex.Single
 import retrofit2.Retrofit
@@ -17,5 +18,9 @@ class ApiService {
 
     fun getData() : Single<List<CoinListItem>> {
         return api.getAllCoins("1")
+    }
+
+    fun getCoin(id: String) : Single<CoinDetail> {
+        return api.getCoinById(id)
     }
 }

@@ -1,3 +1,5 @@
 package com.example.cryptocurrencypricetrackerapp.dto
 
-class CoinList : ArrayList<CoinListItem>()
+data class CurrentPrice(
+    val usd: Double
+)

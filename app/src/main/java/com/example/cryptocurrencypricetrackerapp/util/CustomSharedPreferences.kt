@@ -12,7 +12,6 @@ class CustomSharedPreferences {
         private var sharedPreferences : SharedPreferences?=null
         private val preferences_time =""
 
-
         @Volatile private var instance: CustomSharedPreferences?=null
 
         private val lock=Any()
@@ -26,8 +25,6 @@ class CustomSharedPreferences {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             return CustomSharedPreferences()
         }
-
-
 
     }
 

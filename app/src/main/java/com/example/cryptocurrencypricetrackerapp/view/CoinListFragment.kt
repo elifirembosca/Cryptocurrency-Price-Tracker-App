@@ -2,21 +2,24 @@ package com.example.cryptocurrencypricetrackerapp.view
 
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.cryptocurrencypricetrackerapp.MainActivity
 import com.example.cryptocurrencypricetrackerapp.R
 import com.example.cryptocurrencypricetrackerapp.adapter.CoinListAdapter
+import com.example.cryptocurrencypricetrackerapp.dto.CoinListItem
 import com.example.cryptocurrencypricetrackerapp.viewmodel.CoinListViewModel
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
 
-class CoinListFragment : Fragment(), SearchView.OnQueryTextListener {
+class CoinListFragment : Fragment() {
 
     private lateinit var viewModel: CoinListViewModel
     private val coinListAdapter = CoinListAdapter(arrayListOf())
+    private var coinList: ArrayList<CoinListItem> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,26 +37,27 @@ class CoinListFragment : Fragment(), SearchView.OnQueryTextListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(CoinListViewModel::class.java)
         viewModel.refreshData()
-        coinListRv.setHasFixedSize(true)
-        coinListRv.apply {
+        coin_list_rv.setHasFixedSize(true)
+        coin_list_rv.apply {
             layoutManager = GridLayoutManager(context,3)
         }
-        coinListRv.adapter=coinListAdapter
+        coin_list_rv.adapter=coinListAdapter
 
-        swipeRefresh.setOnRefreshListener {
-            coinListRv.visibility = View.GONE
+        swipe_refresh.setOnRefreshListener {
+            coin_list_rv.visibility = View.GONE
             loading_image.visibility = View.VISIBLE
             error_image.visibility = View.GONE
             viewModel.getDataFromAPI()
-            swipeRefresh.isRefreshing = false
+            swipe_refresh.isRefreshing = false
         }
         observeLiveData()
     }
 
-    private fun observeLiveData(){
+    private fun observeLiveData() {
         viewModel.coinList.observe(viewLifecycleOwner, Observer { list ->
             list?.let {
-                coinListRv.visibility = View.VISIBLE
+                coinList = list as ArrayList<CoinListItem>
+                coin_list_rv.visibility = View.VISIBLE
                 coinListAdapter.updateCoinList(list)
             }
 
@@ -79,14 +83,37 @@ class CoinListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     }
 
-    override fun onQueryTextSubmit(p0: String?): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.search_menu, menu)
+        val item = menu.findItem(R.id.action_search)
+        val searchView = SearchView(
+            (activity as MainActivity).supportActionBar!!.themedContext
+        )
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        item.actionView = searchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
 
-    override fun onQueryTextChange(p0: String?): Boolean {
-        coinListAdapter.filter.filter(p0)
-        return true
+            override fun onQueryTextChange(newText: String): Boolean {
+                var newList: ArrayList<CoinListItem> = ArrayList()
+                for (row in coinList) {
+                    if (row.coinName!!.lowercase()
+                            .contains(newText.lowercase()) || row.symbol!!.lowercase()
+                            .contains(newText.lowercase())
+                    ) {
+                        newList.add(row)
+                    } else if(newText.isBlank()){
+                        newList = coinList
+                    }
+                }
+                coinListAdapter.updateCoinList(newList)
+                return true
+            }
+        })
     }
-
 
 }
