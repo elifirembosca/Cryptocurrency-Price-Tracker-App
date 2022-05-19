@@ -4,7 +4,7 @@
 
 Created Using...
 - Kotlin
-- -MVVM
+- MVVM
 - Room
 - Retrofit
 - Picasso
