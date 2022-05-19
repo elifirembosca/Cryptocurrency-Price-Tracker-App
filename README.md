@@ -11,4 +11,3 @@ Created Using...
 - Rxjava 2 
 - Firestore
 
-(![image](https://user-images.githubusercontent.com/77533236/169321963-8ced1098-36d0-4d3c-9284-ca653c9f6f4e.png))
