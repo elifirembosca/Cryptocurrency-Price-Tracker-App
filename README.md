@@ -11,4 +11,4 @@ Created Using...
 - Rxjava 2 
 - Firestore
 
-<img src="[https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif](https://im2.ezgif.com/tmp/ezgif-2-ecef765c08.gif)" width="40" height="40" />
+![app gif](https://gifyu.com/image/SxLEU)
